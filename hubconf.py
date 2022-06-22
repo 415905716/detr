@@ -1,7 +1,7 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
 import torch
 
-from models.backbone import Backbone, Joiner
+from models.backbone import Backbone, Joiner, Quantized_Backbone
 from models.detr import DETR, PostProcess
 from models.position_encoding import PositionEmbeddingSine
 from models.segmentation import DETRsegm, PostProcessPanoptic
@@ -12,7 +12,8 @@ dependencies = ["torch", "torchvision"]
 
 def _make_detr(backbone_name: str, dilation=False, num_classes=91, mask=False):
     hidden_dim = 256
-    backbone = Backbone(backbone_name, train_backbone=True, return_interm_layers=mask, dilation=dilation)
+    # backbone = Backbone(backbone_name, train_backbone=True, return_interm_layers=mask, dilation=dilation)
+    backbone = Quantized_Backbone(backbone_name, train_backbone=True, return_interm_layers=mask, dilation=dilation)
     pos_enc = PositionEmbeddingSine(hidden_dim // 2, normalize=True)
     backbone_with_pos_enc = Joiner(backbone, pos_enc)
     backbone_with_pos_enc.num_channels = backbone.num_channels
