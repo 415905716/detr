@@ -9,7 +9,7 @@ from torchvision import ops
 from torchvision import transforms
 from torchvision import utils
 
-from extension import _HAS_OPS
+from .extension import _HAS_OPS
 
 # try:
 #     from .version import __version__  # noqa: F401
